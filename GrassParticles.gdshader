@@ -41,15 +41,15 @@ void start() {
 	vec3 normal =  texture(normalMap,uv).xyz;
 	vec3 tangent = normalize(cross(normal,vec3(randomVec(INDEX).x,-1.0,randomVec(INDEX).y)));
 	vec3 bitangent = normalize(cross(normal,tangent));
-	
-	
+
+
 	TRANSFORM[0].xyz = tangent;
 	TRANSFORM[1].xyz = bitangent;
 	TRANSFORM[2].xyz = normal;
-	
+
 	TRANSFORM[3].xz = uv * particleDensity;
 	TRANSFORM[3].y = (texture(Heightmap,uv).r + HeightOffset) * HeightScale * 1.0;
-	
+
 
 	CUSTOM = vec4(normal,0.0);
 	COLOR = vec4(uv,0.0,0.0);
