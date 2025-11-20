@@ -1,0 +1,94 @@
+[gd_scene load_steps=17 format=3 uid="uid://cj0n8d40bqo6s"]
+
+[ext_resource type="Script" uid="uid://cog50q78fxk4y" path="res://EnvHandler.gd" id="1_ni31j"]
+[ext_resource type="Shader" uid="uid://ck5kmpyvyhxlc" path="res://GrassParticles.gdshader" id="1_nxogm"]
+[ext_resource type="Shader" uid="uid://x5wsxgd0fhd0" path="res://GrassVis.gdshader" id="1_u3cyc"]
+[ext_resource type="ArrayMesh" uid="uid://drwox0rtt2uxc" path="res://Assets/Models/Grass.obj" id="2_3253y"]
+[ext_resource type="ArrayMesh" uid="uid://b3he5h4g7g7fu" path="res://Assets/Models/SubPlane.obj" id="3_u3cyc"]
+[ext_resource type="Texture2D" uid="uid://sb5y74cje4x3" path="res://Assets/Textures/Global/NormalHeight.tres" id="3_y2354"]
+[ext_resource type="Shader" uid="uid://c5815poon7ots" path="res://Heightmap.gdshader" id="5_m7jmp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3253y"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_u3cyc"]
+sky_material = SubResource("ProceduralSkyMaterial_3253y")
+
+[sub_resource type="Environment" id="Environment_m7jmp"]
+background_mode = 2
+sky = SubResource("Sky_u3cyc")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_y2354"]
+colors = PackedColorArray(0, 0.410493, 0, 1, 0.635294, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ni31j"]
+gradient = SubResource("Gradient_y2354")
+fill_from = Vector2(0.6, 0)
+fill_to = Vector2(0.6, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m7jmp"]
+render_priority = 0
+shader = ExtResource("1_u3cyc")
+shader_parameter/color = SubResource("GradientTexture2D_ni31j")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u3cyc"]
+shader = ExtResource("1_nxogm")
+shader_parameter/normalMap = ExtResource("3_y2354")
+shader_parameter/totalParticles = 500.0
+shader_parameter/particleDensity = 25.0
+shader_parameter/uvSampleOff = 0.01
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ni31j"]
+render_priority = 0
+shader = ExtResource("5_m7jmp")
+shader_parameter/NormalMap = ExtResource("3_y2354")
+shader_parameter/color = Color(0, 0.410493, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xlvrw"]
+render_priority = 0
+shader = ExtResource("1_u3cyc")
+
+[node name="Scene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_m7jmp")
+script = ExtResource("1_ni31j")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.739152, -0.24455)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.533688, 0.608768, 0.587008, 0.433015, -0.39952, 0.808011, 0.726413, 0.685409, -0.0503886, 9, 3, 0)
+visible = false
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+visible = false
+size = Vector3(5, 0.1, 5)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, -12.5)
+material_override = SubResource("ShaderMaterial_m7jmp")
+cast_shadow = 0
+amount = 250000
+explosiveness = 1.0
+visibility_aabb = AABB(0, 0, 0, 25, 5, 25)
+local_coords = true
+draw_order = 3
+process_material = SubResource("ShaderMaterial_u3cyc")
+draw_pass_1 = ExtResource("2_3253y")
+
+[node name="SubPlane" type="MeshInstance3D" parent="."]
+mesh = ExtResource("3_u3cyc")
+surface_material_override/0 = SubResource("ShaderMaterial_ni31j")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.74463, 0.872683, -0.572644)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98851, 0)
+material_override = SubResource("ShaderMaterial_xlvrw")
+mesh = ExtResource("2_3253y")
