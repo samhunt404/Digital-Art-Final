@@ -11,11 +11,19 @@ uniform float particleDensity = 1.0;
 uniform float uvSampleOff = 0.05; //used for sampling heightmap to calculate areas of density, should read density map
 
 
+float Hash21(vec2 uv)
+{
+    return fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
 vec2 randomVec(uint seed)
 {
+
 	vec2 outputDir;
-	outputDir.x = fract(float(int(seed) * 1298 % 7)* 374.29873928 );
-	outputDir.y = fract(float(int(seed) * 4098 % 13) * 65093.5409670 + 1.0948739);
+	outputDir.x = float(int(seed) * 53 % 101);
+	outputDir.y = float(int(seed) * 27 % 13);
+	outputDir *= Hash21(outputDir);
+	outputDir = fract(outputDir);
 	return outputDir;
 }
 vec2 dir(sampler2D tex, vec2 uv)
@@ -39,7 +47,7 @@ void start() {
 	uv += offset;
 	//rotation
 	vec3 normal =  texture(normalMap,uv).xyz;
-	vec3 tangent = normalize(cross(normal,vec3(randomVec(INDEX).x,-1.0,randomVec(INDEX).y)));
+	vec3 tangent = normalize(cross(normal,vec3(0,-1.0,0)));
 	vec3 bitangent = normalize(cross(normal,tangent));
 
 

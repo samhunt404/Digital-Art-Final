@@ -1,22 +1,20 @@
 shader_type spatial;
 render_mode cull_disabled, vertex_lighting;
-uniform sampler2D color;
-uniform sampler2D depth_texture : hint_depth_texture;
+uniform sampler2D sceneNormal;
+uniform sampler2D colors;
 
+global uniform sampler2D Heightmap;
 global uniform sampler2D Wind;
 global uniform vec2 WindDir;
 global uniform vec2 WindSpeed;
+
 varying vec3 normalVal;
 void vertex() {
 	//uv from particle system
 	vec2 uv = COLOR.xy;
 	vec2 windStren = WindDir * texture(Wind, fract(uv + WindSpeed * TIME)).r * (UV.y);
 	VERTEX.xz += (vec4(windStren,0.0,0.0) * MODEL_MATRIX).xy;
-
-	normalVal = MODELVIEW_NORMAL_MATRIX * INSTANCE_CUSTOM.xyz;
-
-
-
+	normalVal = INSTANCE_CUSTOM.xyz;
 	//vec3 local_up = MODEL_MATRIX[1].xyz;
 	////cross of:
 	////	local_transform.basis.y     and    to_world(view_space.forward)
@@ -37,6 +35,6 @@ void vertex() {
 
 void fragment()
 {
-	NORMAL =  normalVal;
-	ALBEDO = texture(color,UV).rgb;
+	NORMAL =  texture(sceneNormal,SCREEN_UV).rgb;
+	ALBEDO = texture(colors,texture(Heightmap,UV).xy).rgb;;
 }

@@ -14,11 +14,16 @@ config/name="Digital Art Final"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1080
+window/size/viewport_height=720
+
 [shader_globals]
 
 Heightmap={
 "type": "sampler2D",
-"value": "res://Heightmap.tres"
+"value": "res://Assets/Textures/Global/Heightmap.tres"
 }
 HeightOffset={
 "type": "float",
@@ -30,11 +35,11 @@ HeightScale={
 }
 Densitymap={
 "type": "sampler2D",
-"value": "res://DensityMap.tres"
+"value": "res://Assets/Textures/Global/DensityMap.tres"
 }
 Wind={
 "type": "sampler2D",
-"value": "res://Wind.tres"
+"value": "res://Assets/Textures/Global/Wind.tres"
 }
 WindDir={
 "type": "vec2",
