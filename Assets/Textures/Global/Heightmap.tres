@@ -6,4 +6,5 @@ frequency = 0.0141
 [resource]
 width = 256
 height = 256
+seamless = true
 noise = SubResource("FastNoiseLite_u4tvs")
