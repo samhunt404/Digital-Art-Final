@@ -10,6 +10,6 @@ void vertex() {
 }
 
 void fragment() {
-	NORMAL_MAP = texture(NormalMap,UV).rgb;
+	//NORMAL_MAP = texture(NormalMap,UV).rgb;
 	ALBEDO = texture(colors,texture(Heightmap,UV).xy).rgb;
 }
