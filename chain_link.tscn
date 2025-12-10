@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://fti7py8v00du"]
+
+[ext_resource type="PackedScene" uid="uid://cxpjmuvbh5cnh" path="res://Assets/Models/ChainLink.glb" id="1_2jive"]
+[ext_resource type="Material" uid="uid://bpxv8ftl66fv6" path="res://Assets/Rust.tres" id="2_w5ym0"]
+[ext_resource type="Material" uid="uid://lvcjx1y8ou5c" path="res://Assets/FenceLink.tres" id="3_y5ffe"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j6o0w"]
+points = PackedVector3Array(0.0410646, 1.97762, 0.0035078, -0.0485426, -0.00634289, -0.022362, -0.0485426, -0.00634289, 0.0299543, -0.0485426, 2.00837, -0.022362, 0.0299543, -0.00634289, -0.0485426, 0.0299543, -0.00634289, 0.0430535, -0.0485426, 2.00837, 0.0299543, 0.0299543, 2.00837, -0.0485426, 0.0299543, 2.00837, 0.0430535, -0.022362, 2.00837, -0.0485426, -0.022362, -0.00634289, -0.0485426, -0.00879559, 1.94661, 0.0396545, 0.0396545, 1.94661, -0.00879559, 0.0165072, 2.01571, 0.0165072, 0.0035078, 1.97762, 0.0410646)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_h8ngx"]
+points = PackedVector3Array(1.01587, 0.015873, 1.01587, -1.01587, -0.015873, -1.01587, -1.01587, 0.015873, -1.01587, 1.01587, -0.015873, -1.01587, -1.01587, -0.015873, 1.01587, -1.01587, 0.015873, 1.01587, 1.01587, 0.015873, -1.01587, 1.01587, -0.015873, 1.01587)
+
+[node name="ChainLink" instance=ExtResource("1_2jive")]
+
+[node name="Post" parent="." index="0"]
+material_override = ExtResource("2_w5ym0")
+
+[node name="Chain" parent="." index="1"]
+material_override = ExtResource("3_y5ffe")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_j6o0w")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 1, 0)
+shape = SubResource("ConvexPolygonShape3D_h8ngx")

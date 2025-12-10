@@ -1,0 +1,13 @@
+[gd_resource type="NoiseTexture2D" load_steps=2 format=3 uid="uid://dj076j1iggh3v"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tpdg1"]
+frequency = 0.0366
+domain_warp_enabled = true
+
+[resource]
+width = 4096
+height = 4096
+seamless = true
+seamless_blend_skirt = 0.25
+as_normal_map = true
+noise = SubResource("FastNoiseLite_tpdg1")

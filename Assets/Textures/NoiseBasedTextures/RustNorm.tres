@@ -1,0 +1,11 @@
+[gd_resource type="NoiseTexture2D" load_steps=2 format=3 uid="uid://bift11b7n2uaw"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_igjv2"]
+frequency = 0.0339
+
+[resource]
+width = 4096
+height = 4096
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_igjv2")

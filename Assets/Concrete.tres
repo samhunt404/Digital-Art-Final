@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dnfgiemg05sgj"]
+
+[ext_resource type="Texture2D" uid="uid://c1wmrm227egte" path="res://Assets/Textures/NoiseBasedTextures/Concrete.tres" id="1_ky7ce"]
+[ext_resource type="Texture2D" uid="uid://dj076j1iggh3v" path="res://Assets/Textures/NoiseBasedTextures/ConcreteNorm.tres" id="2_alyiy"]
+
+[resource]
+albedo_texture = ExtResource("1_ky7ce")
+normal_enabled = true
+normal_scale = 1.55
+normal_texture = ExtResource("2_alyiy")
+uv1_triplanar = true
+uv1_world_triplanar = true
